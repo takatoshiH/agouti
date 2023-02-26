@@ -20,6 +20,7 @@ func Connect(url string, capabilities map[string]interface{}, httpClient *http.C
 		httpClient = http.DefaultClient
 	}
 
+	// ここでsessionId取得している
 	sessionID, err := openSession(url, requestBody, httpClient)
 	if err != nil {
 		return nil, err
@@ -44,6 +45,7 @@ func capabilitiesToJSON(capabilities map[string]interface{}) (io.Reader, error) 
 	return bytes.NewReader(capabiltiesJSON), err
 }
 
+// SessionId取得している
 func openSession(url string, body io.Reader, httpClient *http.Client) (sessionID string, err error) {
 	request, err := http.NewRequest("POST", fmt.Sprintf("%s/session", url), body)
 	if err != nil {
@@ -52,6 +54,7 @@ func openSession(url string, body io.Reader, httpClient *http.Client) (sessionID
 
 	request.Header.Add("Content-Type", "application/json")
 
+	// ここの取得内容を確認したい
 	response, err := httpClient.Do(request)
 	if err != nil {
 		return "", err

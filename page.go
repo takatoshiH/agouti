@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sclevine/agouti/api"
+	"agouti/api"
 )
 
 // A Page represents an open browser session. Pages may be created using the
@@ -214,6 +214,8 @@ func (p *Page) Size(width, height int) error {
 // Screenshot takes a screenshot and saves it to the provided filename.
 // The provided filename may be an absolute or relative path.
 func (p *Page) Screenshot(filename string) error {
+
+	// ファイルを作成する場所を確認する
 	absFilePath, err := filepath.Abs(filename)
 	if err != nil {
 		return fmt.Errorf("failed to find absolute path for filename: %s", err)
@@ -224,6 +226,7 @@ func (p *Page) Screenshot(filename string) error {
 		return fmt.Errorf("failed to retrieve screenshot: %s", err)
 	}
 
+	// スクショを保存する
 	if err := ioutil.WriteFile(absFilePath, screenshot, 0666); err != nil {
 		return fmt.Errorf("failed to save screenshot: %s", err)
 	}
